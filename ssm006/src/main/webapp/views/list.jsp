@@ -12,7 +12,7 @@
 %>
 <!-- 引入jQuery、bootstrap -->
 <script type="text/javascript"
-	src="${APP_PATH}/static/js/jquery-1.8.3.js"></script>
+	src="${APP_PATH}/static/js/jquery-3.2.1.min.js"></script>
 
 <link rel="stylesheet"
 	href="${APP_PATH}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css"></link>

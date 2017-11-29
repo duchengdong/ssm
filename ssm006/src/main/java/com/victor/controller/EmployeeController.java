@@ -29,14 +29,14 @@ public class EmployeeController {
 	 * @param pn
 	 * @return
 	 */
-//	@RequestMapping("/emps")
-//	@ResponseBody
-//	public Msg getEmpsWithJson(@RequestParam(value="pn",defaultValue="1") Integer pn) {
-//		PageHelper.startPage(pn, 5);
-//		List<Employee> emps = employeeService.getAll();
-//		PageInfo page =  new PageInfo(emps,5);
-//		return Msg.success().add("pageInfo",page);
-//	}
+	@RequestMapping("/emps")
+	@ResponseBody
+	public Msg getEmpsWithJson(@RequestParam(value="pn",defaultValue="1") Integer pn) {
+		PageHelper.startPage(pn, 5);
+		List<Employee> emps = employeeService.getAll();
+		PageInfo page =  new PageInfo(emps,5);
+		return Msg.success().add("pageInfo",page);
+	}
 	 
 
 	/**
@@ -44,7 +44,7 @@ public class EmployeeController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/emps")
+//	@RequestMapping("/emps")
 	public String getEmps(@RequestParam(value="pn",defaultValue="1") Integer pn,Model model) {
 		
 		PageHelper.startPage(pn, 5);
