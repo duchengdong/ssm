@@ -21,6 +21,27 @@
 
 </head>
 <body>
+	<!-- 添加员工模态框 -->
+	<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">新增员工</h4>
+				</div>
+				<div class="modal-body">内容区域</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="container">
 		<!-- 标题 -->
 		<div class="row">
@@ -31,7 +52,7 @@
 		<!-- 按钮：新增、删除-->
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8">
-				<button class="btn btn-primary">新增</button>
+				<button class="btn btn-primary" id="emp_add_modal_btn">新增</button>
 				<button class="btn btn-danger">删除</button>
 			</div>
 
@@ -136,7 +157,7 @@
 			if (result.extend.pageInfo.hasPreviousPage == false) {
 				firstPageLi.addClass("disabled");
 				prePageLi.addClass("disabled");
-			}else{
+			} else {
 				firstPageLi.click(function() {
 					to_page(1);
 				});
@@ -151,8 +172,8 @@
 			if (result.extend.pageInfo.hasNextPage == false) {
 				nextPageLi.addClass("disabled");
 				lastPageLi.addClass("disabled");
-			}else{
-				
+			} else {
+
 				lastPageLi.click(function() {
 					to_page(result.extend.pageInfo.pages);
 				});
@@ -160,7 +181,6 @@
 					to_page(result.extend.pageInfo.pageNum + 1);
 				});
 			}
-		
 
 			ul.append(firstPageLi).append(prePageLi);
 			$.each(result.extend.pageInfo.navigatepageNums, function(index,
@@ -180,6 +200,12 @@
 			$("<nav></nav>").append(ul).appendTo("#page_nav_area");
 
 		}
+		$("#emp_add_modal_btn").click(function(){
+			$('#empAddModal').modal({
+				
+			})
+		});
+		
 	</script>
 </body>
 </html>
