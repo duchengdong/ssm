@@ -80,7 +80,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button type="button" class="btn btn-primary" id="emp_save_btn">保存</button>
 				</div>
 			</div>
 		</div>
@@ -265,9 +265,8 @@
 				url : "${APP_PATH}/depts",
 				type : "GET",
 				success : function(result) {
+					$("#dept_add_select").empty();
 					$.each(result.extend.pageInfo, function(index, item) {
-						/* $("#dept_add_select") */
-
 						//如果方法不传参，可以直接用this代表当前遍历的对象
 						var optionElement = $("<option></option>").append(
 								item.deptName).attr("value", item.deptId);
@@ -279,6 +278,24 @@
 
 			});
 		}
+
+		//新增员工-保存按钮添加事件
+		$("#emp_save_btn").click(function() {
+			//提交modal框数据
+
+			$.ajax({
+
+				url : "${APP_PATH}/emp",
+				type : "POST",
+				data : $("#empAddModal form").serialize(),
+				success : function(result) {
+					//关闭模态框、前往最后一页查看数据
+					$('#empAddModal').modal("hide");
+					to_page(99999);
+				}
+
+			});
+		});
 	</script>
 </body>
 </html>

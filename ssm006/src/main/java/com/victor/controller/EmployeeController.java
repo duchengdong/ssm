@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,6 +24,19 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService employeeService;
+	
+	/**
+	 * 员工保存
+	 * @return
+	 */
+	@RequestMapping(value="/emp",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg saveEmp(Employee employee) {
+		System.out.println(employee);
+		employeeService.saveEmp(employee);
+		return Msg.success();
+
+	}
 	
 	/**
 	 * @ResponseBody必须导入jackson包

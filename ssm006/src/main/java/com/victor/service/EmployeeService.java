@@ -17,4 +17,9 @@ public class EmployeeService {
 		
 		return mapper.selectByExampleWithDept(null);
 	}
+	
+	public void saveEmp(Employee employee) {
+		mapper.insertSelective(employee);
+		
+	}
 }
