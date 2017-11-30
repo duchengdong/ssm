@@ -33,7 +33,51 @@
 					</button>
 					<h4 class="modal-title" id="myModalLabel">新增员工</h4>
 				</div>
-				<div class="modal-body">内容区域</div>
+				<div class="modal-body">
+					<!-- 内容区域 -->
+					<form class="form-horizontal">
+
+						<!-- 姓名 -->
+						<div class="form-group">
+							<label for="input_add_empName" class="col-sm-2 control-label">empName</label>
+							<div class="col-sm-10">
+								<input type="text" name="empName" class="form-control"
+									id="input_add_empName" placeholder="EmpName">
+							</div>
+						</div>
+						<!-- 性别 -->
+						<div class="form-group">
+							<label for="input_add_gender" class="col-sm-2 control-label">Gender</label>
+							<div class="col-sm-10">
+								<label class="radio-inline"> <input type="radio"
+									name="gender" id="gender1_add_input" value="m"
+									checked="checked"> 男 </label> <label class="radio-inline">
+									<input type="radio" name="gender" id="gender2_add_input"
+									value="f"> 女 
+								</label>
+							</div>
+						</div>
+						<!-- 邮箱 -->
+						<div class="form-group">
+							<label for="inputEmail" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-10">
+								<input type="email" name="email" class="form-control"
+									id="inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<!-- 部门 -->
+						<div class="form-group">
+							<label for="input_add_dept" name=""
+								class="col-sm-2 control-label">Department</label>
+							<div class="col-sm-4">
+								<select class="form-control" name="dId" id="dept_add_select">
+
+								</select>
+							</div>
+						</div>
+
+					</form>
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					<button type="button" class="btn btn-primary">保存</button>
@@ -42,6 +86,7 @@
 		</div>
 	</div>
 
+	<!-- 列表数据区 -->
 	<div class="container">
 		<!-- 标题 -->
 		<div class="row">
@@ -49,6 +94,7 @@
 				<h1>SSM-CRUD</h1>
 			</div>
 		</div>
+
 		<!-- 按钮：新增、删除-->
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8">
@@ -57,6 +103,7 @@
 			</div>
 
 		</div>
+
 		<!-- 显示表格数据-->
 		<div class="row">
 			<div class="col-md-12">
@@ -73,18 +120,16 @@
 					</thead>
 					<tbody>
 					</tbody>
-
-
-
-
 				</table>
 			</div>
 		</div>
+
 		<!-- 分页信息 -->
 		<div class="row">
 			<div class="col-md-6" id="page_info_area"></div>
 			<div class="col-md-6" id="page_nav_area"></div>
 		</div>
+
 	</div>
 
 
@@ -108,7 +153,7 @@
 				}
 			});
 		}
-
+		//员工信息解析
 		function build_emps_table(result) {
 			$("#emps_table tbody").empty();
 			var emps = result.extend.pageInfo.list;
@@ -138,6 +183,7 @@
 
 			});
 		}
+		//页码信息解析
 		function build_page_info(result) {
 			$("#page_info_area").empty();
 			$("#page_info_area").append(
@@ -145,6 +191,7 @@
 							+ result.extend.pageInfo.pages + "页，总"
 							+ result.extend.pageInfo.total + "条记录");
 		}
+		//页码导航解析
 		function build_page_nav(result) {
 			$("#page_nav_area").empty();
 			var ul = $("<ul></ul>").addClass("pagination");
@@ -200,12 +247,38 @@
 			$("<nav></nav>").append(ul).appendTo("#page_nav_area");
 
 		}
-		$("#emp_add_modal_btn").click(function(){
+		//弹出新增员工模态框
+		$("#emp_add_modal_btn").click(function() {
+			//发送ajax请求获取所有部门信息
+			getDepts();
+			//弹出模态框
 			$('#empAddModal').modal({
-				
+
 			})
+
 		});
-		
+
+		//查询部门信息
+		function getDepts() {
+			$.ajax({
+				/* url : "${APP_PATH}/emps", */
+				url : "${APP_PATH}/depts",
+				type : "GET",
+				success : function(result) {
+					$.each(result.extend.pageInfo, function(index, item) {
+						/* $("#dept_add_select") */
+
+						//如果方法不传参，可以直接用this代表当前遍历的对象
+						var optionElement = $("<option></option>").append(
+								item.deptName).attr("value", item.deptId);
+						$("#dept_add_select").append(optionElement);
+
+					});
+
+				}
+
+			});
+		}
 	</script>
 </body>
 </html>
